@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@model PagedList.IPagedList<WSCamera.Models.customer>
+@using PagedList.Mvc;
+
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-title">
+                        <h4><i class="icon-reorder"></i>Quản lý khách hàng</h4>
+
+                    </div>
+                 
+                    <div class="widget-body ShowCategory">
+                        <input type="text" class="form-control" id="customerSearch" placeholder="search Customer" />
+
+                    </div>
+                    <div class="widget-body ShowCategory">
+                        <table class="table table-striped table-bordered" id="sample_1">
+                            <thead>
+                                <tr>
+
+                                    <td># </td>
+                                    <td>First Name</td>
+                                    <td>Last Name </td>
+                                    <td>Phone </td>
+                                    <td>Email </td>
+                                    <td>Steet </td>
+                                    <td>typeLogin </td>
+                                    <td>city </td>
+                                    <td>Delete</td>
+                                </tr>
+                            </thead>
+                            <tbody class="ManageUser">
+
+                                @foreach (var customer in Model)
+                                {
+                                    <tr data-id="@customer.customer_id">
+                                        <td>@customer.customer_id</td>
+                                        <td>@customer.first_name</td>
+                                        <td>@customer.last_name</td>
+                                        <td>@customer.phone</td>
+                                        <td>@customer.email</td>
+                                        <td>@customer.street</td>
+                                        <td>@customer.typeLogin</td>
+                                        <td>@customer.city</td>
+                                        <td><a class="templatemo-link DeleteCustomer" data-id="@customer.customer_id">Delete</a></td>
+                                    </tr>
+                                }
+                              
+
+                            </tbody>
+                        </table>
+                        @Html.PagedListPager(Model, page => Url.Action("ManageCustomer", new { page, pageSize = Model.PageSize }))
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

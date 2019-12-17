@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+
+<div class="col-md-12">
+    <h4 style="margin-top: 20px;">Thông tin đơn hàng</h4>
+    <form>
+        <table class="table table-bordered" style="text-align: center;">
+            <tbody>
+                <tr>
+                    <td colspan="2">Chi tiết đơn hàng</td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><b>ID Đơn hàng </b>@Model.order.order_id</p>
+                        <p><b>Ngày tạo </b>@Model.order.order_date</p>
+                    </td>
+                    <td>
+                        <p>Địa chỉ giao hàng </p><p>
+                        </p><p>@Model.order.street</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-bordered" style="text-align: center;">
+            <thead>
+                <tr>
+                    <th>Mã Sản Phẩm</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                    <th>Tổng số</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.item)
+                {
+                    int total = (int)item.item.quantity * (int)item.item.list_price;
+                    <tr>
+                        <td>@item.product.product_id</td>
+                        <td>@item.product.product_name</td>
+                        <td>@item.item.quantity</td>
+                        <td>@item.item.list_price đ</td>
+                        <td>@total</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3"></td>
+                    <td>Thành tiền</td>
+                    <td>
+                        @if (Model.item != null)
+                        {
+                            int total = 0;
+                            foreach (var item in Model.item)
+                            {
+                                total += (int)item.item.quantity * (int)item.item.list_price;
+                            }
+                            @total
+                        } đ
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3"></td>
+                    <td>Free Ship</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="3"></td>
+                    <td>Tổng tiền</td>
+                    <td>
+                        @if (Model.item != null)
+                    {
+                        int total = 0;
+                        foreach (var item in Model.item)
+                        {
+                            total += (int)item.item.quantity * (int)item.item.list_price;
+                        }
+                        @total
+                    } đ
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <p style="width: 100%;margin-top: 20px;"><a href="/Order" style="background: #FF5C00; padding: 10px 30px; color:#fff; float: right;">Back</a></p>
+</form>
+</div>
+    </div>
+</div>    
+

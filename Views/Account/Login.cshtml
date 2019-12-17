@@ -1,0 +1,95 @@
+﻿@model WSCamera.Models.customer
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="form">
+    <!--form-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-1">
+                <div class="login-form">
+                    <!--login form-->
+                    <h2>Login to your account</h2>
+                    @if(ViewBag.error2 != null) {
+                    <div class="form-group">
+                       <p class="alert alert-danger">@ViewBag.error2</p>
+
+                    </div>
+                    }
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.email, new { @class = "form-control",@type="email", @placeholder = "Email", @required = "" })
+
+                        </div>
+                            <div class="form-group">
+                                @Html.PasswordFor(model => model.password, new { @class = "form-control", @placeholder = "Password", @required = "" })
+
+                            </div>
+                        <button type="submit" class="btn btn-default">Login</button>
+                    }
+                </div><!--/login form-->
+            </div>
+            <div class="col-sm-1">
+                <h2 class="or">OR</h2>
+            </div>
+            <div class="col-sm-4">
+                <div class="signup-form">
+                    <!--sign up form-->
+                    <h2>New User Signup!</h2>
+                    <form action="/Account/Register" method="post">
+                        @if (ViewBag.result != null)
+                        {
+                            <p class="alert alert-success">@ViewBag.result</p>
+                        }
+                        @if (ViewBag.error != null)
+                        {
+                            <p class="alert alert-error">@ViewBag.error</p>
+                        }
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.first_name, new { @class = "first-last-name", @placeholder = "First name", @required = "" })
+                            @Html.TextBoxFor(model => model.last_name, new { @class = "first-last-name", @placeholder = "Last name", @required = "" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.phone, new { @class = "form-control", @placeholder = "Phone number", @required = "", @type = "tel" })
+                            @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.email, new { @class = "form-control", @placeholder = "Email", @required = "", @type = "email" })
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.street, new { @class = "form-control", @placeholder = "Steet", @required = "", @type = "text" })
+                            @Html.ValidationMessageFor(model => model.street, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.city, new { @class = "form-control", @placeholder = "City", @required = "", @type = "text" })
+                            @Html.ValidationMessageFor(model => model.city, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.PasswordFor(model => model.password, new { @class = "form-control", @placeholder = "Password", @required = "", @type = "password" })
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+
+                            
+                        </div>
+                        <button type="submit" class="btn btn-default">Signup</button>
+                    </form>
+                </div><!--/sign up form-->
+            </div>
+        </div>
+    </div>
+</section><!--/form-->
+
+

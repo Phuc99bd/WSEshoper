@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="col-sm-6 EditStaff" style="display:none;padding: 15px;">
+    <div class="form-group">
+        <h3>Edit Staff</h3>
+    </div>
+    <div class="form-group">
+        <input type="text" placeholder="" readonly class="form-control" id="idStaff" required="" />
+    </div>
+    <div class="form-group">
+        <input type="text" placeholder="Display Name" class="form-control" id="nameEditStaff" required="" />
+    </div>
+
+    <div class="form-group">
+        <input type="tel" placeholder="Phone" class="form-control" id="phoneEditStaff" required="" />
+    </div>
+    <div class="form-group">
+        <input type="email" placeholder="Email" class="form-control" id="emailEditStaff" required="" />
+    </div>
+  
+ 
+    <div class="form-group">
+        <select class="form-control" id="statusStaff">
+            <option value="true">Active</option>
+            <option value="false">Not active</option>
+        </select>
+    </div>
+    <button class="btn btn-primary backShowStaff">Back</button>&nbsp;&nbsp; <button class="btn btn-success" data-id="" id="UpdateStaff">Update</button>
+</div>

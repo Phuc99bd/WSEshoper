@@ -1,0 +1,113 @@
+﻿@using WSCamera.Models;
+<!DOCTYPE html>
+<!--[if IE 8]><html lang="en" class="ie8"></html><![endif]--><!--[if IE 9]><html lang="en" class="ie9"></html><![endif]--><!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.title</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <link href="~/Areas/Admin/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/style.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/style_responsive.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/style_default.css" rel="stylesheet" id="style_color" />
+    <link href="~/Areas/Admin/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/assets/uniform/css/uniform.default.css" />
+    <link href="~/Areas/Admin/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/jqvmap/jqvmap/jqvmap.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="~/Areas/Admin/css/alertify.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/froala_editor.pkgd.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/config.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/PagedList.css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="~/Areas/Admin/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    @Styles.Render("~/Content/PagedList.css")
+</head>
+<body class="fixed-top">
+    <div id="header" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="brand" href="./index.html"><img src="~/Areas/Admin/img/logo.png" alt="Admin Lab" /></a><a class="btn btn-navbar collapsed" id="main_menu_trigger" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span><span class="arrow"></span></a>
+                <div id="top_menu" class="nav notify-row">
+
+                </div>
+                <div class="top-nav ">
+                    <ul class="nav pull-right top-menu">
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="~/Areas/Admin/img/avatar1_small.jpg" alt="" />&nbsp;&nbsp;<span class="username">@((Session["staff"] as staff).display_name)</span><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+
+                                <li><a href="/Admin/Login/Logout"><i class="icon-key"></i> Đăng xuất</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container" class="row-fluid">
+        <div id="sidebar" class="nav-collapse collapse">
+            <div class="sidebar-toggler hidden-phone"></div>
+            <div class="navbar-inverse">
+               
+            </div>
+            <ul class="sidebar-menu">
+
+                <li class="has-sub active">
+                    <a href="/Admin/ManageCategory" class=""><span class="icon-box"><i class="icon-dashboard"></i></span> <span class="text-sidebar">Quản lý loại sản phẩm</span></a>
+                </li>
+
+                <li class="has-sub">
+                    <a href="/Admin/ManageCustomer" class=""><span class="icon-box"><i class="icon-book"></i></span> <span class="text-sidebar">Quản lý khách hàng</span> </a>
+
+                </li>
+                <li class="has-sub">
+                    <a href="/Admin/ManageOrder" class=""><span class="icon-box"><i class="icon-book"></i></span> <span class="text-sidebar">Quản lý đơn hàng</span></a>
+
+                </li>
+                <li class="has-sub">
+                    <a href="/Admin/ManageProduct" class=""><span class="icon-box"><i class="icon-tasks"></i></span> <span class="text-sidebar">Quản lý sản phẩm</span></a>
+
+                </li>
+                <li class="has-sub">
+                    <a href="/Admin/ManageStaff" class=""><span class="icon-box"><i class="icon-tasks"></i></span> <span class="text-sidebar">Quản lý nhân viên</span> </a>
+
+                </li>
+                <li class="has-sub">
+                    <a href="/Admin/Login/Logout" class=""><span class="icon-box"><i class="icon-tasks"></i></span> <span class="text-sidebar">Đăng xuất</span> </a>
+
+                </li>
+            </ul>
+        </div>
+
+        @RenderBody()
+
+
+
+
+        <div id="footer">
+            2019 &copy; By Quang phú
+        </div>
+        <script src="~/Areas/Admin/js/jquery-1.8.3.min.js"></script>
+        <script src="~/Areas/Admin/assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="~/Areas/Admin/assets/bootstrap/js/bootstrap.min.js"></script>
+        <!--[if lt IE 9]><script src="~/Areas/Admin/js/excanvas.js"></script><script src="~/Areas/Admin/js/respond.js"></script><![endif]-->
+
+        <script type="text/javascript" src="~/Areas/Admin/assets/data-tables/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="~/Areas/Admin/assets/data-tables/DT_bootstrap.js"></script>
+        <script src="~/Areas/Admin/js/scripts.js"></script>
+        <script src="~/Areas/Admin/js/froala_editor.pkgd.min.js"></script>
+        <script src="~/Areas/Admin/js/alertify.js"></script>
+        @Scripts.Render("~/Areas/Admin/js/sweetalert2.all.min.js")
+        @Scripts.Render("~/Areas/Admin/jsAPI/ManageUser.js")
+        @Scripts.Render("~/Areas/Admin/jsAPI/staff.js")
+        @Scripts.Render("~/Areas/Admin/jsAPI/Product.js")
+        @Scripts.Render("~/Areas/Admin/jsAPI/Order.js")
+</body>
+</html>

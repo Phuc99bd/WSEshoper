@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Lịch sử đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="margin:auto;">
+
+<br />
+<h3>Chi tiết đơn hàng</h3>
+<table class="table table-bordered" style="text-align: center;">
+    <thead>
+        <tr>
+            <th>ID Đơn hàng</th>
+            <th>Khách hàng</th>
+            <th>Số Sản Phẩm</th>
+            <th>Trạng thái</th>
+            <th>Tổng số</th>
+            <th>Ngày đặt hàng</th>
+            <th>Ngày dự kiến giao hàng</th>
+            <th>Xem chi tiết</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.order)
+        {
+            int quantity = 0;
+            int total = 0;
+            foreach (var name in Model.item)
+            {
+                if (name.order_id == item.order_id)
+                {
+                    quantity += (int)name.quantity;
+                    total += (int)name.list_price * (int)name.quantity;
+                }
+            }
+            <tr>
+                <td>@item.order_id</td>
+                <td>@item.first_name @item.last_name</td>
+                <td>@quantity</td>
+                @if (item.order_status == false)
+                {
+                    <td>Đang xử lý</td> }
+                else
+                {
+                    <td>Đang vận chuyển</td>
+                }
+                <td>@total đ</td>
+                <td>@item.order_date</td>
+                <td>@item.shipped_date</td>
+                <td><a href="/ViewDetail?id=@item.order_id" style="padding: 5px 30px; background: #FF5C00; "><i class="fa fa-eye" style="background:  #FF6349;"></i></a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+        </div></div>

@@ -1,0 +1,115 @@
+﻿@using WSCamera.Models;
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Shopping Cart</li>
+            </ol>
+        </div>
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description"></td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody class="mainCart">
+                    @if (Session["Cart"] != null)
+                    {
+                        foreach (var item in (List<CartItem>)Session["Cart"])
+                        {
+                            int totalItem = (int)item.cart.list_price * (int)item.quantity;
+
+
+                    <tr class="itemCart" data-id="@item.cart.product_id">
+                        <td class="cart_product">
+                            <a href="/SingleProduct?id=@item.cart.product_id"><img src="~/images/@item.cart.image" alt="" width="50"></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="/SingleProduct?id=@item.cart.product_id" style="font-size:14px;">@item.cart.product_name</a></h4>
+                            <p>Web ID: @item.cart.product_id</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>@item.cart.list_price đ</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <a class="cart_quantity_up plus" href="javascript:void(0)" data-id="@item.cart.product_id"> + </a>
+                                <input class="cart_quantity_input" type="text" id="quantity_@item.cart.product_id" name="quantity" value="@item.quantity" autocomplete="off" size="2" readonly>
+                                <a class="cart_quantity_down minus" href="javascript:void(0)" data-id="@item.cart.product_id"> - </a>
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price" style="font-size:16px;">@totalItem đ</p>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete removeProduct" href="javascript:void(0)" data-id="@item.cart.product_id"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section> <!--/#cart_items-->
+
+<section id="do_action">
+    <div class="container">
+        <div class="heading">
+            <h3>What would you like to do next?</h3>
+            <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="total_area">
+                    <ul>
+                        <li>Cart Sub Total <span>@if (Session["Cart"] != null)
+                        {
+                            int total = 0;
+                            foreach (var item in (List<CartItem>)Session["Cart"])
+                            {
+                                total += (int)item.cart.list_price * item.quantity;
+                            }
+                            @total
+                        }
+                        else
+                        {
+                            @Html.Raw("0")
+                        }
+                        đ</span></li>
+                        <li>Shipping Cost <span>Free</span></li>
+                        <li>Total <span>@if (Session["Cart"] != null)
+                        {
+                            int total = 0;
+                            foreach (var item in (List<CartItem>)Session["Cart"])
+                            {
+                                total += (int)item.cart.list_price * item.quantity;
+                            }
+                            @total
+                        }
+                        else
+                        {
+                            @Html.Raw("0")
+                        }
+                        đ</span></li>
+                    </ul>
+                    <a class="btn btn-default check_out" href="/Checkout">Check Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!--/#do_action-->
+

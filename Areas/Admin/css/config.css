@@ -1,0 +1,49 @@
+﻿.create-student,.edit-student,.create-staff,.edit-staff,.create-action,.edit-action,.edit-details{
+    display:none;
+}
+.form-control{
+    width:50%;
+}
+.alertify-notifier .ajs-message.ajs-error {
+  color: #fff;
+}
+.pagination-container ul li{
+    list-style-type:none;
+    
+}
+
+.pagination-container ul li a{
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+.has-sub a{
+    text-justify:auto;
+    align-content:center;
+    vertical-align:middle;
+
+}
+.text-sidebar{
+       text-align: center;
+    padding: 20px 2px;
+    height: 100%;
+    position: absolute;
+}
+ul.btn-fixCss li{
+    list-style-type:none;
+    width:100%;
+    position:relative;
+}
+ul.btn-fixCss li p{
+    width:100%;
+}
+ul.btn-fixCss li span{ 
+    position:relative;
+    float:left;
+    width:50%;
+}

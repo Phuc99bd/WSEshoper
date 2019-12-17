@@ -1,0 +1,232 @@
+﻿@using WSCamera.Models
+@model WSCamera.Models.customer
+
+@{
+    ViewBag.Title = "Check out";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Check out</li>
+            </ol>
+        </div><!--/breadcrums-->
+        <div class="row">
+            <div class="col-md-8" style="margin:auto;">
+
+                @if (ViewBag.success != null)
+                {
+                    <p class="alert alert-success">@ViewBag.success</p>
+                }
+                @if (ViewBag.error != null)
+                {
+                    <p class="alert alert-danger">@ViewBag.error</p>
+                }
+                @using (Html.BeginForm("Index", "CheckOut", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div id="customer_details" class="col2-set">
+                        <div class="col-1">
+                            <div class="woocommerce-billing-fields">
+                                <h3>Billing Details</h3>
+
+                                <p id="billing_first_name_field" class="form-row form-row-first validate-required">
+                                    <label class="" for="billing_first_name">
+                                        First Name <abbr title="required" class="required">*</abbr>
+                                    </label>
+                                    @Html.TextBoxFor(x => x.first_name, new { @class = "form-control", @id = "billing_first_name", @Value = ((Session["user"] as customer).first_name), required = string.Empty })
+
+                                </p>
+
+                                <p id="billing_last_name_field" class="form-row form-row-last validate-required">
+                                    <label class="" for="billing_last_name">
+                                        Last Name <abbr title="required" class="required">*</abbr>
+                                    </label>
+                                    @Html.TextBoxFor(x => x.last_name, new { @class = "form-control", @id = "billing_first_name", @Value = ((Session["user"] as customer).last_name), required = string.Empty })
+
+
+
+                                </p>
+                                <div class="clear"></div>
+
+
+
+                                <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
+                                    <label class="" for="billing_address_1">
+                                        Street <abbr title="required" class="required">*</abbr>
+                                    </label>
+                                    @Html.TextBoxFor(x => x.street, new { @class = "form-control", @id = "billing_address_1", @Value = ((Session["user"] as customer).street), required = string.Empty })
+
+
+                                </p>
+
+
+
+                                <p id="billing_city_field" class="form-row form-row-wide address-field validate-required" data-o_class="form-row form-row-wide address-field validate-required">
+                                    <label class="" for="billing_city">
+                                        Town / City <abbr title="required" class="required">*</abbr>
+                                    </label>
+                                    @Html.TextBoxFor(x => x.city, new { @class = "form-control", @id = "billing_city", @Value = ((Session["user"] as customer).city), required = string.Empty })
+
+
+                                </p>
+
+
+                                <p id="billing_postcode_field" class="form-row form-row-last address-field validate-required validate-postcode" data-o_class="form-row form-row-last address-field validate-required validate-postcode">
+                                    <label class="" for="billing_postcode">
+                                        Zip Code <abbr title="required" class="required">*</abbr>
+                                    </label>
+                                    @Html.TextBoxFor(x => x.zip_code, new { @class = "form-control", @id = "billing_city", @Value = ((Session["user"] as customer).zip_code), required = string.Empty })
+
+
+
+                                </p>
+
+                                <div class="clear"></div>
+
+                                <p id="billing_email_field" class="form-row form-row-first validate-required validate-email">
+                                    <label class="" for="billing_email">
+                                        Email  <abbr title="required" class="required">*</abbr>
+                                    </label>
+                                    @Html.TextBoxFor(x => x.email, new { @class = "form-control", @id = "billing_email", @Value = ((Session["user"] as customer).email), required = string.Empty, @type = "email" })
+                                    @Html.ValidationMessageFor(x => x.email, "", new { @class = "text-danger" })
+
+
+                                </p>
+
+                                <p id="billing_phone_field" class="form-row form-row-last validate-required validate-phone">
+                                    <label class="" for="billing_phone">
+                                        Phone <abbr title="required" class="required">*</abbr>
+                                    </label>
+                                    @Html.TextBoxFor(x => x.phone, new { @class = "form-control", @id = "billing_phone", @Value = ((Session["user"] as customer).phone), required = string.Empty })
+                                    @Html.ValidationMessageFor(x => x.phone, "", new { @class = "text-danger" })
+
+
+                                </p>
+                                <div class="clear"></div>
+
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <h3 id="order_review_heading">Your order</h3>
+
+                    <div id="order_review" style="position: relative;">
+                        <table class="shop_table table">
+                            <thead>
+                                <tr>
+                                    <th class="product-name">Product</th>
+                                    <th class="product-total">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Session["Cart"] != null)
+                    {
+                        foreach (var item in (List<CartItem>)Session["Cart"])
+                        {
+                    <tr class="cart_item">
+                        <td class="product-name">
+                            @item.cart.product_name <strong class="product-quantity">× @item.quantity</strong>
+                        </td>
+                        <td class="product-total">
+                            <span class="amount">@item.cart.list_price đ</span>
+                        </td>
+                    </tr>
+                        }
+                    }
+                            </tbody>
+                            <tfoot>
+
+                                <tr class="cart-subtotal">
+                                    <th>Cart Subtotal</th>
+                                    <td>
+                                        <span class="amount">
+                                            @if (Session["Cart"] != null)
+                                {
+                                    int total = 0;
+                                    foreach (var item in (List<CartItem>)Session["Cart"])
+                                    {
+                                        total += (int)item.cart.list_price * item.quantity;
+                                    }
+                                @total
+                                }
+                                else
+                                { @Html.Raw("0") }
+                                            đ
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr class="shipping">
+                                    <th>Shipping and Handling</th>
+                                    <td>
+
+                                        Free Shipping
+                                        <input type="hidden" class="shipping_method" value="free_shipping" id="shipping_method_0" data-index="0" name="shipping_method[0]">
+                                    </td>
+                                </tr>
+
+
+                                <tr class="order-total">
+                                    <th>Order Total</th>
+                                    <td>
+                                        <strong>
+                                            <span class="amount">
+                                                @if (Session["Cart"] != null)
+                                    {
+                                        int total = 0;
+                                        foreach (var item in (List<CartItem>)Session["Cart"])
+                                        {
+                                            total += (int)item.cart.list_price * item.quantity;
+                                        }
+                                    @total
+                                    }
+                                    else
+                                    { @Html.Raw("0") }
+                                                đ
+                                            </span>
+                                        </strong>
+                                    </td>
+                                </tr>
+
+                            </tfoot>
+                        </table>
+
+
+                        <div id="payment">
+                            <ul class="payment_methods methods">
+
+                                <li class="payment_method_cheque">
+                                    <input type="radio" data-order_button_text="" value="cheque" name="payment_method" class="input-radio" id="payment_method_cheque" checked>
+                                    <label for="payment_method_cheque">Thanh toán khi nhận hàng </label>
+                                    <div style="display:none;" class="payment_box payment_method_cheque">
+                                        <p>Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                            <div class="form-row place-order">
+
+                                <input type="submit" data-value="Place order" value="Place order" id="place_order" name="woocommerce_checkout_place_order" class="button alt btn btn-danger">
+
+
+                            </div>
+
+                            <div class="clear"></div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section> <!--/#cart_items-->
+

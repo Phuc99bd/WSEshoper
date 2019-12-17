@@ -1,0 +1,207 @@
+﻿@model WSCamera.Models.viewSingleProduct
+
+@{
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Loại sản phẩm</h2>
+                    <div class="panel-group category-products" id="accordian">
+                        <!--category-productsr-->
+                        @foreach (var item in Model.category) { 
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="/Category?id=@item.category_id">@item.category_name</a></h4>
+                            </div>
+                        </div>
+                        }
+                    </div><!--/category-products-->
+
+      
+
+               
+
+                    <div class="shipping text-center">
+                        <!--shipping-->
+                        <img src="~/images/shop/shipping.jpg" alt="" />
+                    </div><!--/shipping-->
+
+                </div>
+            </div>
+
+            <div class="col-sm-9 padding-right">
+                <div class="product-details">
+                    <!--product-details-->
+                    <div class="col-sm-5">
+                        <div class="view-product">
+                            <img src="~/images/@Model.details.image" alt="" />
+                     
+                        </div>
+                     
+
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="product-information">
+                            <!--/product-information-->
+                            <img src="~/images/product-details/new.jpg" class="newarrival" alt="" />
+
+                            <h2>@Model.details.product_name</h2>
+                        
+                            <span>
+                                <span>@Model.details.list_price đ</span>
+                                <br />
+                                <label>Số lượng: @Model.details.quantity</label>
+                                <br />
+                                <input type="number" class="quantityProduct" value="1" min="1" max="99" />
+                                <button type="button" class="btn btn-fefault cart add_to_cart_by_quantity" data-id="@Model.details.product_id">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    Add to cart
+                                </button>
+                            </span>
+                        
+                            <p><b>Brand:</b> E-SHOPPER</p>
+                            
+                            Mô tả: @Html.Raw(Model.details.Description)
+                        </div><!--/product-information-->
+                    </div>
+                </div><!--/product-details-->
+
+                <div class="category-tab shop-details-tab">
+                    <!--category-tab-->
+                    <div class="col-sm-12">
+                        <ul class="nav nav-tabs">
+                            <li><a href="#details" data-toggle="tab">Chi tiết</a></li>   
+                            <li class="active"><a href="#reviews" data-toggle="tab">Đánh giá sản phẩm (@Model.comment.Count().ToString())</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="details">
+                            @foreach (var item in Model.productLQ.Take(4)) { 
+                            <div class="col-sm-3">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="~/images/@item.image" alt="" />
+                                            <h2>@item.list_price đ</h2>
+                                            <p>@item.product_name</p>
+                                            <button type="button" class="btn btn-default add-to-cart-link" data-id="@item.product_id"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        </div>
+
+                      
+
+                        <div class="tab-pane fade active in" id="reviews">
+                            <div class="col-sm-12">
+                                @*<ul>
+                                    <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
+                                    <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
+                                    <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
+                                </ul>*@
+                                <div class="panel panel-default widget">
+                                    <ul class="list-group list-comment">
+                                        @foreach (var item in Model.comment)
+                                        {
+                                            <li class="list-group-item ids-comment">
+                                                <div class="row">
+                                                    <div class="col-xs-2 col-md-1">
+                                                        <img src="http://placehold.it/80" class="img-circle img-responsive" alt="" />
+                                                    </div>
+                                                    <div class="col-xs-10 col-md-11 css-fix-comment">
+                                                        <div>
+                                                            <div class="mic-info">
+                                                                @item.name <i class="fa fa-user"></i> &nbsp; @item.createdAt.Value.ToLongDateString().ToString() @item.createdAt.Value.ToLongTimeString().ToString()  <i class="fa fa-calendar-o"></i> 
+                                                            </div>
+                                                        
+                                                        </div>
+                                                        <div class="comment-text">
+                                                            @item.content
+                                                        </div>
+
+                                                    </div>
+                                                </div><hr />
+                                            </li> }
+                                    </ul>
+                                    </div>
+
+                                </div>
+
+                                <form action="#">
+                                    <span>
+                                        <input type="text" placeholder="Your Name" id="name"/>
+                                        <input type="email" placeholder="Email Address" id="email" />
+                                    </span>
+                                    <textarea name="" id="message" placeholder="Message"></textarea>
+                                    <button type="button" data-id="@Model.details.product_id" id="btn_comment" class="btn btn-default pull-right">
+                                        Submit
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                <!--/category-tab-->
+
+                <div class="recommended_items">
+                    <!--recommended_items-->
+                    <h2 class="title text-center">recommended items</h2>
+
+                    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                @foreach (var item  in Model.productList.Skip(0).Take(3)) { 
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="~/images/@item.image" alt="" />
+                                                <h2>@item.list_price đ</h2>
+                                                <p>@item.product_name</p>
+                                                <button type="button" class="btn btn-default add-to-cart-link" data-id="@item.product_id"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                              
+                            </div>
+                            <div class="item">
+                                @foreach(var item in Model.productList.Skip(3).Take(3)) { 
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="~/images/@item.image" alt="" />
+                                                <h2>@item.list_price đ</h2>
+                                                <p>@item.product_name</p>
+                                                <button type="button" class="btn btn-default add-to-cart-link" data-id="@item.product_id"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div><!--/recommended_items-->
+
+            </div>
+        </div>
+    </div>
+</section>
+
